@@ -16,6 +16,8 @@ void PrintList(osoba* people);
 osoba* AddAtEnd(osoba* people);
 void SearchBySurname(osoba* people);
 void Delete(osoba* people);
+void AddAfter(osoba* people);
+osoba* AddBefore(osoba* people);
 
 int main() {
 	osoba* people=NULL;
@@ -25,6 +27,8 @@ int main() {
 		   "Unesi C za(dinamicki dodati novi element na kraj liste)\n"
 		   "Unesi D za(trazenje element u listi (po prezimenu))\n"
 		   "Unesi E za(brisanje odredenog elementa iz liste)\n"
+		   "Unesi G za dodavanje novog clana nakon odredenog indeksa\n"
+		   "Unesi H za dodavanje novog clana prije odredenog indeksa\n"
 		   "Unesi F za kraj\n");
 	
 	scanf("%c", &znak);
@@ -51,6 +55,14 @@ int main() {
 			case 'e':
 				Delete(people);
 				break;
+			case 'G':
+			case 'g':
+				AddAfter(people);
+				break;
+			case 'H':
+			case 'h':
+				people=AddBefore(people);
+				break;
 
 			default:
 				break;
@@ -61,6 +73,8 @@ int main() {
 			"Unesi C za(dinamicki dodati novi element na kraj liste)\n"
 			"Unesi D za(trazenje element u listi (po prezimenu))\n"
 			"Unesi E za(brisanje odredenog elementa iz liste)\n"
+			"Unesi G za dodavanje novog clana nakon odredenog indeksa\n"
+			"Unesi H za dodavanje novog clana prije odredenog indeksa\n"
 			"Unesi F za kraj\n");
 
 			scanf(" %c", &znak);
@@ -123,6 +137,7 @@ osoba* AddAtEnd(osoba* people) {
 	return people;
 }
 
+
 void SearchBySurname(osoba* people) {
 	if (people == NULL) {
 		printf("Lista je prazna");
@@ -150,7 +165,7 @@ void Delete(osoba* people) {
 	int indeks=0;
 	int brojac = 0;
 	printf("Unesite redni broj clana kojeg zelite izbrisat\n");
-	scanf("%d",&indeks);
+	scanf(" %d",&indeks);
 	previous = people;
 
 	while (people != NULL) {
@@ -164,4 +179,70 @@ void Delete(osoba* people) {
 		brojac++;
 	}
 	printf("Dali ste nepostojeci indeks\n");
+}
+
+void AddAfter(osoba* people) {
+	osoba* new = (osoba*)malloc(sizeof(osoba));
+	printf("Unesite Ime osobe\n");
+	scanf("%s", new->name);
+	printf("Unesite Prezime osobe\n");
+	scanf("%s", new->surname);
+	printf("Unesite Godiste osobe\n");
+	scanf("%d", &new->year);
+	new->next = NULL;
+	int indeks=0;
+	int brojac = 0;
+	printf("Unesite indeks osobe nakon koje zelite stavit novu osobu");
+	scanf(" %d", &indeks);
+
+	while (people != NULL) {
+
+		if (brojac == indeks == 0) {
+			people->next = new;
+			break;
+		}
+		else if (brojac == indeks) {
+			new->next = people->next;
+			people->next = new;
+			break;
+		}
+		people = people->next;
+		brojac++;
+	}
+
+}
+osoba* AddBefore(osoba* people) {
+	osoba* begin=people;
+	osoba* new = (osoba*)malloc(sizeof(osoba));
+	osoba* previous;
+	previous = people;
+	printf("Unesite Ime osobe\n");
+	scanf("%s", new->name);
+	printf("Unesite Prezime osobe\n");
+	scanf("%s", new->surname);
+	printf("Unesite Godiste osobe\n");
+	scanf("%d", &new->year);
+	new->next = NULL;
+	int indeks = 0;
+	int brojac = 0;
+	printf("Unesite indeks osobe prije koje zelite stavit novu osobu");
+	scanf(" %d", &indeks);
+
+	while (people != NULL) {
+		
+		if (brojac == indeks && indeks == 0) {
+			new->next = people;
+			begin = new;
+			break;
+		}
+		else if (brojac == indeks) {
+			new->next = people;
+			previous->next = new;
+			break;
+		}
+		previous = people;
+		people = people->next;
+		brojac++;
+	}
+	return begin;
 }
