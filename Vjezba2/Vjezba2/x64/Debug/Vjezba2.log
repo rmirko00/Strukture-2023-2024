@@ -1,3 +1,4 @@
 ﻿  Source.c
-C:\Users\Prasac\Desktop\Strukture-2023-2024\Vjezba2\Vjezba2\Source.c(24,1): warning C4047: 'initializing': 'char' differs in levels of indirection from 'void *'
+C:\Users\Prasac\Desktop\Strukture-2023-2024\Vjezba2\Vjezba2\Source.c(26,1): warning C4047: 'initializing': 'char' differs in levels of indirection from 'void *'
+C:\Users\Prasac\Desktop\Strukture-2023-2024\Vjezba2\Vjezba2\Source.c(268,6): warning C4101: 'indeks': unreferenced local variable
   Vjezba2.vcxproj -> C:\Users\Prasac\Desktop\Strukture-2023-2024\Vjezba2\x64\Debug\Vjezba2.exe

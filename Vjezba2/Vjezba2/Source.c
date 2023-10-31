@@ -18,18 +18,22 @@ void SearchBySurname(osoba* people);
 void Delete(osoba* people);
 void AddAfter(osoba* people);
 osoba* AddBefore(osoba* people);
+osoba* ReadFile();
+void WriteFile(osoba* people);
 
 int main() {
 	osoba* people=NULL;
 	char znak=NULL;
 	printf("Unesi A za(dodati novi element na pocetak liste)\n"
-		   "Unesi B za(ispis liste)\n"
-		   "Unesi C za(dinamicki dodati novi element na kraj liste)\n"
-		   "Unesi D za(trazenje element u listi (po prezimenu))\n"
-		   "Unesi E za(brisanje odredenog elementa iz liste)\n"
-		   "Unesi G za dodavanje novog clana nakon odredenog indeksa\n"
-		   "Unesi H za dodavanje novog clana prije odredenog indeksa\n"
-		   "Unesi F za kraj\n");
+		"Unesi B za(ispis liste)\n"
+		"Unesi C za(dinamicki dodati novi element na kraj liste)\n"
+		"Unesi D za(trazenje element u listi (po prezimenu))\n"
+		"Unesi E za(brisanje odredenog elementa iz liste)\n"
+		"Unesi G za dodavanje novog clana nakon odredenog indeksa\n"
+		"Unesi H za dodavanje novog clana prije odredenog indeksa\n"
+		"Unesi I za iscitavanje liste iz filea\n"
+		"Unesi J za unos liste u file\n"
+		"Unesi F za kraj\n");
 	
 	scanf("%c", &znak);
 
@@ -63,6 +67,14 @@ int main() {
 			case 'h':
 				people=AddBefore(people);
 				break;
+			case 'I':
+			case 'i':
+				people=ReadFile();
+				break;
+			case 'J':
+			case 'j':
+				WriteFile(people);
+				break;
 
 			default:
 				break;
@@ -75,6 +87,8 @@ int main() {
 			"Unesi E za(brisanje odredenog elementa iz liste)\n"
 			"Unesi G za dodavanje novog clana nakon odredenog indeksa\n"
 			"Unesi H za dodavanje novog clana prije odredenog indeksa\n"
+			"Unesi I za iscitavanje liste iz filea\n"
+			"Unesi J za unos liste u file\n"
 			"Unesi F za kraj\n");
 
 			scanf(" %c", &znak);
@@ -245,4 +259,47 @@ osoba* AddBefore(osoba* people) {
 		brojac++;
 	}
 	return begin;
+}
+
+osoba* ReadFile() {
+	int i;
+	char buffer[128];
+	int num = 0;
+	int indeks;
+	FILE* fp;
+	osoba* head=NULL;
+	osoba* previous=NULL;
+	fp = fopen("people.txt", "r");
+
+	while (fgets(buffer, sizeof(buffer), fp) != NULL) {
+		num++;
+		}	
+	rewind(fp);
+
+	for (i = 0; i < num; i++) {
+		osoba* new = (osoba*)malloc(sizeof(osoba));
+		fscanf(fp, "%s %s %d",new->name,new->surname,&new->year);
+		if (i == 0) {
+			previous = new;
+			head = new;
+			continue;
+		}
+		previous->next = new;
+		previous = new;
+
+	}
+	previous->next = NULL;
+	fclose(fp);
+	return head;
+}
+
+void WriteFile(osoba* people) {
+	FILE* fp;
+	fp = fopen("People_New.txt", "w");
+	while (people != NULL) {
+		fprintf(fp, "%s %s %d\n", people->name, people->surname, people->year);
+		people=people->next;
+
+	}
+	fclose(fp);
 }
