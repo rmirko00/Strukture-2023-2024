@@ -20,10 +20,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="people.txt">
+    <Text Include="polinom.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="peopleforsort.txt">
+    <Text Include="polinom1.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

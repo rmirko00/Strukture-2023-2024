@@ -20,6 +20,8 @@ void AddAfter(osoba* people);
 osoba* AddBefore(osoba* people);
 osoba* ReadFile();
 void WriteFile(osoba* people);
+osoba* AddSorted(osoba* people);
+osoba* AddSortedFromFile(osoba* people);
 
 int main() {
 	osoba* people=NULL;
@@ -33,6 +35,8 @@ int main() {
 		"Unesi H za dodavanje novog clana prije odredenog indeksa\n"
 		"Unesi I za iscitavanje liste iz filea\n"
 		"Unesi J za unos liste u file\n"
+		"Unesi K za sortirani unos\n"
+		"Unesi L za sortirani unos iz filea\n"
 		"Unesi F za kraj\n");
 	
 	scanf("%c", &znak);
@@ -75,6 +79,15 @@ int main() {
 			case 'j':
 				WriteFile(people);
 				break;
+			case 'K':
+			case 'k':
+				people=AddSorted(people);
+				break;
+			case 'L':
+			case 'l':
+				people=AddSortedFromFile(people);
+				break;
+
 
 			default:
 				break;
@@ -89,6 +102,8 @@ int main() {
 			"Unesi H za dodavanje novog clana prije odredenog indeksa\n"
 			"Unesi I za iscitavanje liste iz filea\n"
 			"Unesi J za unos liste u file\n"
+			"Unesi K za sortirani unos\n"
+			"Unesi L za sortirani unos iz filea\n"
 			"Unesi F za kraj\n");
 
 			scanf(" %c", &znak);
@@ -302,4 +317,93 @@ void WriteFile(osoba* people) {
 
 	}
 	fclose(fp);
+}
+
+osoba* AddSorted(osoba* people) {
+	osoba* new = (osoba*)malloc(sizeof(osoba));
+	osoba* previous=NULL;
+	osoba* start = NULL;
+	start = people;
+	printf("Unesite Ime osobe\n");
+	scanf("%s", new->name);
+	printf("Unesite Prezime osobe\n");
+	scanf("%s", new->surname);
+	printf("Unesite Godiste osobe\n");
+	scanf("%d", &new->year);
+	new->next = NULL;
+	if (people == NULL) {
+		return new;
+	}
+	while (people != NULL) {
+		if (strcmp(people->surname, new->surname) > 0) {
+			if (previous==NULL) {
+				new->next = people;
+				return new;
+			}
+			previous->next = new;
+			new->next = people;
+			return start;
+		}
+		previous= people;
+		people = people->next;
+	
+	}
+	previous->next = new;
+	new->next = NULL;
+	return start;
+}
+osoba* AddSortedFromFile() {
+	FILE* fp;
+	char buffer[128];
+	int num = 0;
+	int i = 0;
+	osoba* head=NULL;
+	osoba* previous = NULL;
+	osoba* start=NULL;
+	int pom = 0;
+	
+
+	fp = fopen("peopleforsort.txt", "r");
+	if (!fp) {
+		printf("Greska");
+	}
+	while (fgets(buffer, sizeof(buffer), fp) != NULL) {
+		num++;
+	}
+
+	rewind(fp);
+	for (i = 0; i < num; i++) {
+		pom = 0;
+		previous = NULL;
+		head = start;
+		osoba* new = (osoba*)malloc(sizeof(osoba));
+		fscanf(fp, "%s %s %d", new->name, new->surname, &new->year);
+		new->next = NULL;
+		if (start == NULL) {
+			start = new;
+			continue;
+		}
+		while (head != NULL) {
+			if (strcmp(head->surname, new->surname) > 0) {
+				if (previous == NULL) {
+					new->next = start;
+					start = new;
+					pom = 1;
+					break;
+				}
+				previous->next = new;
+				new->next = head;
+				pom = 1;
+				break;
+
+			}
+			previous = head;
+			head = head->next;
+
+		}
+		if (!pom) {
+			previous->next = new;
+		}
+	}
+	return start;
 }
