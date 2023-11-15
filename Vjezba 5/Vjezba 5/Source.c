@@ -67,7 +67,7 @@ int citanjeDatoteke(char ime[MAX], pozicija p) {
 
 		buf = buf + n;
 	}
-	fclose(ime);
+	fclose(fp);
 
 	return 0;
 }
