@@ -75,7 +75,7 @@ int main()
 pozicija createStruct(pozicija p) {
     p = (pozicija)malloc(sizeof(stablo));
     if (p == NULL) {
-        printf("Kiro allociranje memorije ");
+        printf("Krivo allociranje memorije ");
         return -1;
 
     }
