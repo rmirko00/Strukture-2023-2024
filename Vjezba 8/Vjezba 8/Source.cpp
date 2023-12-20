@@ -94,7 +94,7 @@ pozicija unosElementa(pozicija p, pozicija q) {
         p->lijevo = unosElementa(p->lijevo, q);
     }
     else {
-        printf("element ec postoji");
+        printf("element vec postoji");
         free(q);
     }
     return p;
