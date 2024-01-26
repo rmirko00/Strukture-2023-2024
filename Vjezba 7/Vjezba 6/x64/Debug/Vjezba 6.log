@@ -1,0 +1,4 @@
+﻿  Source.c
+C:\Users\Prasac\Desktop\Strukture-2023-2024\Vjezba 6\Vjezba 6\Source.c(179,20): warning C4047: 'return': 'int' differs in levels of indirection from 'void *'
+C:\Users\Prasac\Desktop\Strukture-2023-2024\Vjezba 6\Vjezba 6\Source.c(184): warning C4715: 'push': not all control paths return a value
+  Vjezba 6.vcxproj -> C:\Users\Prasac\Desktop\Strukture-2023-2024\Vjezba 6\x64\Debug\Vjezba 6.exe
