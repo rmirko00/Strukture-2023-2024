@@ -16,7 +16,10 @@ typedef struct _student
 int main() {
 	Student* head = NULL;
 	Student *prev=NULL;
+	Student* prev2 = NULL;
 	Student* current = NULL;
+	Student* head2 = NULL;
+	Student* current2 = NULL;
 	FILE* fp;
 	char name[MAX_NAME_LEN];
 	char surname[MAX_NAME_LEN];
@@ -24,6 +27,7 @@ int main() {
 	int counter = 0;
 	FILE* fp2;
 	int grade;
+
 
 	fp = fopen("studenti.txt", "r");
 	while (fscanf(fp, "%s %s %d", surname, name, &id) == 3) {
@@ -107,7 +111,7 @@ int main() {
 
 	current = head;
 	prev = NULL;
-	printf("Unesite ime studenta kojeg zelite eliminirati");
+	/*printf("Unesite ime studenta kojeg zelite eliminirati");
 	scanf("%s", name);
 	while (current != NULL) {
 		if (strcmp(current->name, name) == 0) {
@@ -125,6 +129,51 @@ int main() {
 			continue;
 		}
 		prev = current;
+		current = current->next;
+	}*/
+	current = head;
+	prev = NULL;
+	head2 = NULL;
+	current2 = NULL;
+	while (current != NULL) {
+		if (current->grade > 1) {
+			if (head2 == NULL) {
+				if (prev == NULL) {
+					head = head->next;
+				}
+				else {
+					prev->next = current->next;
+				}
+				current2 = current;
+				head2 = current2;
+				current = current->next;
+				current2->next = NULL;
+			}
+			else {
+				prev->next = current->next;
+				current2->next = current;
+				current2 = current;
+				current2->next = NULL;
+				current = prev->next;
+			}
+
+
+		}
+		else {
+			prev = current;
+			current = current->next;
+		}
+
+	}
+	current2 = head2;
+	while (current2 != NULL) {
+		printf("%s %s %d\n", current2->name, current2->surname, current2->grade);
+		current2 = current2->next;
+	}
+	printf("\n\n\n");
+	current = head;
+	while (current != NULL) {
+		printf("%s %s %d\n", current->name, current->surname, current->grade);
 		current = current->next;
 	}
 	
