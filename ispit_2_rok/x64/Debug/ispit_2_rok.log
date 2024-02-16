@@ -1,0 +1,5 @@
+﻿  Source.c
+C:\Users\student\Desktop\ispit_2_rok\Source.c(133,7): warning C4101: 'prev2': unreferenced local variable
+C:\Users\student\Desktop\ispit_2_rok\Source.c(131,7): warning C4101: 'head2': unreferenced local variable
+C:\Users\student\Desktop\ispit_2_rok\Source.c(132,7): warning C4101: 'current2': unreferenced local variable
+  ispit_2_rok.vcxproj -> C:\Users\student\Desktop\ispit_2_rok\x64\Debug\ispit_2_rok.exe
